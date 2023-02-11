@@ -12,13 +12,13 @@ function onClickStart() {
     if (timerId !== null) {
 return
     };
-    timerId = setInterval(callback, COLOR_CHANGE_INTERVAL);
+    timerId = setInterval(bodyColorRandom, COLOR_CHANGE_INTERVAL);
 };
 function onClickStop() {
     clearInterval(timerId);
     timerId = null;
 }
-function callback() {
+function bodyColorRandom() {
     document.body.style.backgroundColor = getRandomHexColor();
 }
 function getRandomHexColor() {
