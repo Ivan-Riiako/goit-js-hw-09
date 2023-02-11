@@ -2,7 +2,7 @@ const refs = {
   btnStart: document.querySelector('[data-start]'),
   btnStop: document.querySelector('[data-stop]'),
 };
-const COLOR_CHANGE_INTERVAL = 50; 
+const COLOR_CHANGE_INTERVAL = 1000; 
 let timerId = null;
 
 refs.btnStart.addEventListener('click', onClickStart);
