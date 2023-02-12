@@ -28,7 +28,6 @@ flatpickr(refs.inputData, {
   onClose(selectedDates) {
       changeData = selectedDates[0] - new Date();
       if (!(changeData > 0)) {
-        //   alert('');
         //   Notify.warning('Please choose a date in the future');
           Report.warning(
             'Warning Data',
