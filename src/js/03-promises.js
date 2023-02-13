@@ -18,10 +18,10 @@ function createPromise(position, delay) {
 
   if (shouldResolve) {
     // Fulfill
-     Notify.success(`✅ Fulfilled promise ${1} in ${1}ms`);
+     Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
   } else {
     // Reject
-  Notify.failure(`❌ Rejected promise ${1} in ${1}ms`);
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
   }
 }
 
