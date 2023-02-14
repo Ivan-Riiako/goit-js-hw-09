@@ -1,47 +1,93 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-  // Notify.failure('Qui timide rogat docet negare');
-  // Notify.success('Sol lucet omnibus');
 
 const refs = {
   formCreatePromises: document.querySelector('form'),
-  inputDelay: document.querySelector('input.delay'),
-  inputStep: document.querySelector('input.step'),
-  inputAmount: document.querySelector('input.amount'),
 };
+refs.formCreatePromises.addEventListener('submit', onClickSub);
+
+function onClickSub(event) {
+  event.preventDefault();
+  
+  const amount = Number(event.currentTarget['amount'].value);;
+  const firstDelay = Number(event.currentTarget['delay'].value);
+  const step = Number(event.currentTarget['step'].value);
+
+  let realDelay = firstDelay;
+  for (let i = 1; i <= amount; i += 1) {
+    
+    createPromise(i, realDelay)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+  realDelay += step;
+    
+  }
+}  
+    
 
 
 
-refs.formCreatePromises.addEventListener('submit', submit);
+   
+
+
 
 function createPromise(position, delay) {
+  return new Promise((res, rej) => {
   const shouldResolve = Math.random() > 0.3;
+  const backend = { position, delay };
 
-  if (shouldResolve) {
-    // Fulfill
-     Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  } else {
-    // Reject
-  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  }
-}
+    setTimeout(() => {
 
-function submit(event) {
-  event.preventDefault();
-  const delay = event.currentTarget['delay'].value;
-  const step = event.currentTarget['step'].value;
-  const amount = event.currentTarget['amount'].value;
+      if (shouldResolve) {
+        // Fulfill
+        res(backend);
+      }
+      // Reject
+      rej(backend);
+    }, delay);
 
-  setTimeout(interval(amount, step), delay);
-}
+  })}
+  
 
-function interval(amount, step) {
-  let starCounter = 1;
-  const timerId = setInterval(() => {
-    if (starCounter > amount) {
-      clearInterval(timerId);
-      return;
-    }
-createPromise(starCounter, step);
-    starCounter += 1;
-  }, step);
-}
+
+
+
+  
+
+
+
+// //createPromise(amount, delay)
+//   // .then(({ position, delay }) => {
+//   //   Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//   // })
+//   // .catch(({ position, delay }) => {
+//   //   Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+//   // });
+
+
+// const promis = new Promise((res, rej) => {
+
+// // setTimeout(()=>{
+//   const shouldResolve = Math.random() > 0.3;
+//   if (shouldResolve) {
+//     // Fulfill
+//     res({ position: 5, delay: 2000 });
+//   } else {
+//     // Reject
+//     rej({ position: 5, delay: 2000 });
+//   }
+// // },2000)
+
+// })
+
+
+  // createPromise(324, 2342)
+  //   .then(({ position, delay }) => {
+  //     Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  //   })
+  //   .catch(({ position, delay }) => {
+  //     Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  //   });
