@@ -28,12 +28,11 @@ flatpickr(refs.inputData, {
   onClose(selectedDates) {
       changeData = selectedDates[0] - new Date();
       if (!(changeData > 0)) {
-        //   Notify.warning('Please choose a date in the future');
           Report.warning(
             'Warning Data',
             'Please choose a date in the future',
             'Okay'
-          );
+        );
       }
   },
 });
@@ -46,9 +45,10 @@ function onClickStart() {
         return
     }
      timerId = setInterval(() => {
-        if (changeData === 0) {
+        if (changeData <= 0) {
             clearInterval(timerId);
-            timerId === null;
+          timerId === null;
+          return
         }
       let outTime = convertMs(changeData);
       refs.outputDays.textContent = addLeadingZero(outTime.days);
