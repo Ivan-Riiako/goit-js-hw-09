@@ -11,6 +11,12 @@ function onClickSub(event) {
   const amount = Number(event.currentTarget['amount'].value);;
   const firstDelay = Number(event.currentTarget['delay'].value);
   const step = Number(event.currentTarget['step'].value);
+  if (amount < 0 || firstDelay < 0 || step < 0) {
+    Notify.warning(
+      'Ця сторінка не призначена для понівечення просторово-часового континууму!'
+    );
+    return;
+  }
     let realDelay = firstDelay;
 
   for (let i = 1; i <= amount; i += 1) {
